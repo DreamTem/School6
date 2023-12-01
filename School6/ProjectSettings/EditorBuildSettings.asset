@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Chemistry.unity
-    guid: 782b98a32a9b15e46b16a0038eda21cf
-  - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 9692f389d1abccc418565b5c0d19d99d
   - enabled: 1
+    path: Assets/Scenes/Chemistry.unity
+    guid: 782b98a32a9b15e46b16a0038eda21cf
+  - enabled: 1
     path: Assets/Scenes/P.E..unity
     guid: d6bfef16654b99e46a56d42c7533f9b0
+  - enabled: 1
+    path: Assets/Scenes/Math.unity
+    guid: f99980227290ace48b92f0373eda6b32
   m_configObjects: {}
