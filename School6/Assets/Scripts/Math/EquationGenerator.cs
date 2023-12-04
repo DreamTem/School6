@@ -33,18 +33,30 @@ public class EquationGenerator : MonoBehaviour
 
         Operation[] operations = new Operation[numbersCount - 1];
         int[] args = new int[numbersCount];
+        int uncannyOperationsCount = Random.Range(0, operations.Length + 1);
+        int generatedUncannyOperations = 0;
+
 
         for (int i = 0; i < numbersCount; i++)
         {
             if(i != 0)
             {
-                operations[i - 1] = GenerateOperation();
+                if (generatedUncannyOperations < uncannyOperationsCount)
+                {
+                    int rand = Random.Range(3, 5);
+                    operations[i - 1] = GenerateOperation(rand);
+                    generatedUncannyOperations++;
+                }
+                else
+                {
+                    int rand = Random.Range(1, 3);
+                    operations[i - 1] = GenerateOperation(rand);
+                }
             }
             args[i] = GenerateNumber(operations, args, i);
         }
-
+        
         int answer = GenerateAnswer(operations, args);
-
         Equation eq = new Equation(operations, args, answer);
         return eq;
     }
@@ -59,18 +71,17 @@ public class EquationGenerator : MonoBehaviour
             {
                 while ((numbers[index - 1] % number) != 0)
                 {
-                    number = Random.Range(1, 24);
+                    number = Random.Range(1, 100);
                 }
             }
         }
         return number;
     }
 
-    public Operation GenerateOperation()
+    public Operation GenerateOperation(int randomInt)
     {
       
         Operation op = Operation.Add;
-        int randomInt = Random.Range(1, 5);
 
         switch (randomInt)
         {
@@ -104,8 +115,10 @@ public class EquationGenerator : MonoBehaviour
                     answer -= numbers[i + 1];
                     break;
                 case Operation.Multiply:
+                    answer = answer * numbers[i + 1];
                     break;
                 case Operation.Divide:
+                    answer = answer / numbers[i + 1];
                     break;
             }
         }
