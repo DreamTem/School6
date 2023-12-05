@@ -2,20 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Video;
 
 public class EquationsSystem : MonoBehaviour
 {
     private EquationGenerator generator;
+
+    private LevelLoader loader;
+
     public Text text;
+    
     public InputField iField;
+    
     Equation currentEquation;
+    
     public SocialCredit creditSystem;
+    
     private int completedQuestions = 0;
+
+    public VideoPlayer player;
+
+    public VideoClip correct, incorrect;
+
+    public GameObject videoTexture;
+
+    public Image finalImage;
+
+    public Sprite success, notSuccess;
+
+    public AudioSource source;
+
+    public AudioClip victorySound, loseSound;
 
     private void Start()
     {
         generator = GetComponent<EquationGenerator>();
+        loader = GetComponent<LevelLoader>();
+
         NextQuestion();
     }
     public void NextQuestion()
@@ -55,16 +78,24 @@ public class EquationsSystem : MonoBehaviour
         if(ans == currentEquation.answer)
         {
             creditSystem.UpdateCredit(100);
+            if((completedQuestions + 1) != 10)
+            {
+                ShowVideo(true);
+            }
         }
         else
         {
             creditSystem.UpdateCredit(-100);
+            if ((completedQuestions + 1) != 10)
+            {
+                ShowVideo(false);
+            }
         }
         completedQuestions++;
 
         if(completedQuestions == 10)
         {
-            EndLevel();
+            StartCoroutine(EndLevel());
         }
         else
         {
@@ -75,8 +106,43 @@ public class EquationsSystem : MonoBehaviour
         
     }
 
-    private void EndLevel()
+    private void ShowVideo(bool corr)
     {
+        if (corr)
+        {
+            player.clip = correct;
+            Invoke("DisableVideo", 3);
+        }
+        else
+        {
+            player.clip = incorrect;
+            Invoke("DisableVideo", 2);
+        }
+        player.Play();
+        videoTexture.SetActive(true);
+    }
 
+    private void DisableVideo()
+    {
+        videoTexture.SetActive(false);
+    }
+    private IEnumerator EndLevel()
+    {
+        if(creditSystem.socialCredit >= 500)
+        {
+            finalImage.sprite = success;
+            source.clip = victorySound;
+        }
+        else
+        {
+            finalImage.sprite = notSuccess;
+            source.clip = loseSound;
+        }
+        source.Play();
+        finalImage.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(4);
+
+        loader.Load();
     } 
 }
