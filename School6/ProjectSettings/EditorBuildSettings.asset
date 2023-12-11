@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Math.unity
     guid: f99980227290ace48b92f0373eda6b32
+  - enabled: 1
+    path: Assets/Scenes/Geography.unity
+    guid: 5e7fc5955fc1d874c8ad18c4238d41bd
+  - enabled: 1
+    path: Assets/Scenes/Biology.unity
+    guid: 6848a5ff46ceaf14ead617185b704a71
+  - enabled: 1
+    path: Assets/Scenes/Epilogue.unity
+    guid: 9a94260b00478b740a8913b8f739a304
   m_configObjects: {}
