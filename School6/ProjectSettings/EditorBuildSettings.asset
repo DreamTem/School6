@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Epilogue.unity
     guid: 9a94260b00478b740a8913b8f739a304
+  - enabled: 1
+    path: Assets/Scenes/Music.unity
+    guid: d7ab3dea5441ddc45a7f16c99765a264
   m_configObjects: {}
